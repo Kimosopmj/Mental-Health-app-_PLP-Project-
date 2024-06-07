@@ -111,7 +111,7 @@ class _MoodPageState extends State<MoodPage> {
     'Angry': '😠'
   };
 
-  // Function to update the mood and show feedback dialog
+  // Function to update the mood and navigate to the rating page
   void _updateMood(String mood) {
     setState(() {
       _mood = mood;
@@ -221,7 +221,7 @@ class MoodRatingPage extends StatelessWidget {
   }
 
   void _showFeedback(BuildContext context, int rating) {
-    String feedback = _getFeedbackForMoodRating(rating);
+    String feedback = _getFeedbackForMoodRating(mood, rating);
     showDialog(
       context: context,
       builder: (context) {
@@ -239,21 +239,46 @@ class MoodRatingPage extends StatelessWidget {
     );
   }
 
-  String _getFeedbackForMoodRating(int rating) {
-    switch (rating) {
-      case 1:
-        return 'It seems like you are having a tough time. Remember, it’s okay to seek help.';
-      case 2:
-        return 'Things might be difficult right now. Try to take a break and breathe.';
-      case 3:
-        return 'You are doing okay. Keep up the positive attitude!';
-      case 4:
-        return 'Great! You are doing well. Keep it up!';
-      case 5:
-        return 'Fantastic! Keep spreading the happiness!';
-      default:
-        return '';
-    }
+  String _getFeedbackForMoodRating(String mood, int rating) {
+    Map<String, List<String>> feedbackMap = {
+      'Happy': [
+        'Great to hear you are happy! Keep spreading positivity!',
+        'You seem quite happy! Enjoy the moment!',
+        'You are feeling good! Keep it up!',
+        'You are very happy! It’s great to see that!',
+        'You are extremely happy! Share your joy with others!',
+      ],
+      'Sad': [
+        'It’s okay to feel sad. Take care and talk to someone you trust.',
+        'Feeling down? Try doing something you love.',
+        'It’s natural to feel sad. Take some time for yourself.',
+        'You seem quite sad. Don’t hesitate to reach out for support.',
+        'You are feeling very sad. Please talk to someone close to you.',
+      ],
+      'Anxious': [
+        'Feeling anxious is tough. Try some deep breathing exercises.',
+        'You seem a bit anxious. Take a moment to relax.',
+        'Anxiety can be overwhelming. Remember to take things one step at a time.',
+        'You are feeling quite anxious. Try some mindfulness techniques.',
+        'Your anxiety level is high. Consider speaking to a professional.',
+      ],
+      'Calm': [
+        'Glad to hear you are calm. Keep it up!',
+        'You seem relaxed. Enjoy the calmness!',
+        'Feeling calm is great. Maintain this peaceful state.',
+        'You are quite calm. Keep this positive state of mind.',
+        'You are extremely calm. Continue to enjoy the tranquility.',
+      ],
+      'Angry': [
+        'Anger is a natural emotion. Try to relax and cool down.',
+        'Feeling angry? Take a moment to breathe deeply.',
+        'It’s okay to be angry. Consider doing some physical activity to release it.',
+        'You seem quite angry. Try to find a peaceful activity to distract yourself.',
+        'Your anger level is high. It might help to talk to someone about it.',
+      ],
+    };
+
+    return feedbackMap[mood]?[rating - 1] ?? '';
   }
 }
 
@@ -289,14 +314,14 @@ class WriteFeelingPage extends StatelessWidget {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Write about your feelings...',
-                  fillColor: Colors.white,
                   filled: true,
+                  fillColor: Colors.white.withOpacity(0.8),
                 ),
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  // Display a message and clear the text field
+                  // Save the feelings to a database or show a confirmation message
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Your feelings have been saved.')),
                   );
