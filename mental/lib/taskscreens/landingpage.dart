@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/taskscreens/homepage.dart';
-
 
 class LandingPage extends StatelessWidget {
   @override
@@ -10,13 +8,6 @@ class LandingPage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              // Set background image
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/background_image.jpeg'), // Add your background image asset here
-                  fit: BoxFit.cover,
-                ),
-              ),
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: [
@@ -31,7 +22,8 @@ class LandingPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20),
-                  Image.asset('assets/welcome_image.jpeg'), // Add your image asset here
+                  Image.asset(
+                      'assets/welcome_image.jpeg'), // Add your image asset here
                   SizedBox(height: 20),
                   Text(
                     'Your personal mental health companion. Track your mood, get personalized insights, and access a variety of mental health resources.',
@@ -44,14 +36,11 @@ class LandingPage extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       // Navigate to another screen or perform an action
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
-                      );
                     },
                     child: Text('Get Started'),
                     style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                       textStyle: TextStyle(fontSize: 18),
                     ),
                   ),
@@ -79,12 +68,14 @@ class FeaturesSection extends StatelessWidget {
         FeatureItem(
           icon: Icons.insights,
           title: 'Personalized Insights',
-          description: 'Receive insights tailored to your mental health journey.',
+          description:
+              'Receive insights tailored to your mental health journey.',
         ),
         FeatureItem(
           icon: Icons.library_books,
           title: 'Mental Health Resources',
-          description: 'Access articles, exercises, and more to support your mental health.',
+          description:
+              'Access articles, exercises, and more to support your mental health.',
         ),
       ],
     );
